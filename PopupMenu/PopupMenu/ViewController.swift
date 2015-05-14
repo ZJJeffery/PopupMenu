@@ -13,9 +13,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-        
     }
     // test button shows how to use PoduoMenu
     @IBAction func showClick() {
@@ -31,6 +28,19 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+     let popoverAnimatorDelegate = PopoverAnimator()
+    
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        let vc = segue.destinationViewController as! UIViewController
+//        vc.transitioningDelegate = popoverAnimatorDelegate
+//        
+//        let w: CGFloat = 200
+//        let x = (self.view.bounds.size.width - w) * 0.5
+//        popoverAnimatorDelegate.presentedFrame =  CGRectMake(x, 56, w, 250)
+//        
+//        vc.modalPresentationStyle = UIModalPresentationStyle.Custom
+//
+//    }
 
 }
 
