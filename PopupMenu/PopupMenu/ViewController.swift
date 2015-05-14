@@ -22,29 +22,31 @@ class ViewController: UIViewController {
         let w: CGFloat = 200
         let x = (self.view.bounds.size.width - w) * 0.5
         let frame =  CGRectMake(x, 56, w, 250)
-        
-//        {
-//
-//        }
         // show it
-        pm_presentViewController(modalVc, showFrame: frame, animationAppearBlock: { (view, transitionContext) -> () in
+        
+        pm_presentViewController(modalVc, showFrame: frame, animationAppearBlock: { (view, transitionContext) -> (NSTimeInterval) in
             // 动画内容
             view.transform = CGAffineTransformMakeScale(1.0, 0)
             view.layer.anchorPoint = CGPointMake(0.5, 0)
             
-            UIView.animateWithDuration(0.5,
+            UIView.animateWithDuration(3,
                 delay: 0,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 5.0,
                 options: nil,
                 animations: {
+                    println(view.layer.presentationLayer())
                     view.transform = CGAffineTransformMakeScale(1.0, 1.0)
                 }, completion: { (_) in
-                    view.transform = CGAffineTransformIdentity
-                    transitionContext.completeTransition(true)
+                    //                    view.transform = CGAffineTransformIdentity
+                    println(view.layer.animationKeys())
+                    println(view.layer.presentationLayer().center)
+//                    ////                    // 不应该让用于调用
+//                    transitionContext.completeTransition(true)
             })
-        }, animationDisappearBlock: { (view, transitionContext) -> () in
-            transitionContext.completeTransition(true)
+            return 3.0
+        }, animationDisappearBlock: { (_, _) -> (NSTimeInterval) in
+            return 0.0
         }, completion: nil)
     }
     override func didReceiveMemoryWarning() {

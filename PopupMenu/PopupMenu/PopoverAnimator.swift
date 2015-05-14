@@ -16,9 +16,13 @@ class PopoverAnimator: NSObject, UIViewControllerAnimatedTransitioning, UIViewCo
     var presentedFrame: CGRect = CGRectZero
 //    /// 动画代码
     ///  出现代码
-    var animationAppearBlock:((view: UIView, transitionContext: UIViewControllerContextTransitioning)->())?
+    var animationAppearBlock:((view: UIView, transitionContext: UIViewControllerContextTransitioning)->(NSTimeInterval))?
     /// 消失代码
-    var animationDisappearBlock:((view: UIView,transitionContext: UIViewControllerContextTransitioning)->())?
+    var animationDisappearBlock:((view: UIView,transitionContext: UIViewControllerContextTransitioning)->(NSTimeInterval))?
+    
+    var animationEndBlock:(()->())?
+    
+    var finalFrame: CGRect?
     
     // MARK: - UIViewControllerTransitioningDelegate
     func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController!, sourceViewController source: UIViewController) -> UIPresentationController? {
@@ -57,27 +61,31 @@ class PopoverAnimator: NSObject, UIViewControllerAnimatedTransitioning, UIViewCo
         if isPresented {
             let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
             transitionContext.containerView().addSubview(toView)
-            
-            animationAppearBlock!(view: toView,transitionContext: transitionContext)
-//            // 动画内容
-//            toView.transform = CGAffineTransformMakeScale(1.0, 0)
-//            toView.layer.anchorPoint = CGPointMake(0.5, 0)
-//            
-//            UIView.animateWithDuration(transitionDuration(transitionContext),
-//                delay: 0,
-//                usingSpringWithDamping: 0.8,
-//                initialSpringVelocity: 5.0,
-//                options: nil,
-//                animations: {
-//                    toView.transform = CGAffineTransformMakeScale(1.0, 1.0)
-//                }, completion: { (_) in
-//                    toView.transform = CGAffineTransformIdentity
-//                    transitionContext.completeTransition(true)
-//            })
+            // 根据用户给的动画时长来结束动画
+            let time = animationAppearBlock!(view: toView,transitionContext: transitionContext) - 1.0 as Double
+            let time_t = dispatch_time(DISPATCH_TIME_NOW, (Int64)(time * (Double)(NSEC_PER_SEC)))
+            println(time)
+            dispatch_after(time_t, dispatch_get_main_queue(), { () -> Void in
+                transitionContext.completeTransition(true)
+            })
         } else {
             let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
-            fromView.removeFromSuperview()
-            animationDisappearBlock!(view: fromView,transitionContext: transitionContext)
+            // 根据动画时长来结束动画
+            let time = animationDisappearBlock!(view: fromView,transitionContext: transitionContext) as Double
+            let time_t = dispatch_time(DISPATCH_TIME_NOW, (Int64)(time * (Double)(NSEC_PER_SEC)))
+            dispatch_after(time_t, dispatch_get_main_queue(), { () -> Void in
+                transitionContext.completeTransition(true)
+                fromView.removeFromSuperview()
+            })
+
         }
     }
+    // 过场动画结束的时候调用
+    func animationEnded(transitionCompleted: Bool) {
+        println("\(__FUNCTION__)")
+//         animationEndBlock!()
+    }
+
+    
+
 }
