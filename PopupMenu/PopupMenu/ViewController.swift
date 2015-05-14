@@ -22,9 +22,30 @@ class ViewController: UIViewController {
         let w: CGFloat = 200
         let x = (self.view.bounds.size.width - w) * 0.5
         let frame =  CGRectMake(x, 56, w, 250)
-        // show it
-        pm_presentViewController(modalVc, showFrame: frame, completion:nil)
         
+//        {
+//
+//        }
+        // show it
+        pm_presentViewController(modalVc, showFrame: frame, animationAppearBlock: { (view, transitionContext) -> () in
+            // 动画内容
+            view.transform = CGAffineTransformMakeScale(1.0, 0)
+            view.layer.anchorPoint = CGPointMake(0.5, 0)
+            
+            UIView.animateWithDuration(0.5,
+                delay: 0,
+                usingSpringWithDamping: 0.8,
+                initialSpringVelocity: 5.0,
+                options: nil,
+                animations: {
+                    view.transform = CGAffineTransformMakeScale(1.0, 1.0)
+                }, completion: { (_) in
+                    view.transform = CGAffineTransformIdentity
+                    transitionContext.completeTransition(true)
+            })
+        }, animationDisappearBlock: { (view, transitionContext) -> () in
+            transitionContext.completeTransition(true)
+        }, completion: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -54,7 +75,9 @@ class ModalViewController: UIViewController {
         
         view.backgroundColor = UIColor.redColor()
     }
-    
+    deinit{
+        println("我去了")
+    }
     
 }
 

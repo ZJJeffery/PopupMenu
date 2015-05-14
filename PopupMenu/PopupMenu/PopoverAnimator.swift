@@ -14,6 +14,11 @@ class PopoverAnimator: NSObject, UIViewControllerAnimatedTransitioning, UIViewCo
     var isPresented = false
     /// 展现位置
     var presentedFrame: CGRect = CGRectZero
+//    /// 动画代码
+    ///  出现代码
+    var animationAppearBlock:((view: UIView, transitionContext: UIViewControllerContextTransitioning)->())?
+    /// 消失代码
+    var animationDisappearBlock:((view: UIView,transitionContext: UIViewControllerContextTransitioning)->())?
     
     // MARK: - UIViewControllerTransitioningDelegate
     func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController!, sourceViewController source: UIViewController) -> UIPresentationController? {
@@ -52,24 +57,27 @@ class PopoverAnimator: NSObject, UIViewControllerAnimatedTransitioning, UIViewCo
         if isPresented {
             let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
             transitionContext.containerView().addSubview(toView)
-            toView.transform = CGAffineTransformMakeScale(1.0, 0)
-            toView.layer.anchorPoint = CGPointMake(0.5, 0)
             
-            UIView.animateWithDuration(transitionDuration(transitionContext),
-                delay: 0,
-                usingSpringWithDamping: 0.8,
-                initialSpringVelocity: 5.0,
-                options: nil,
-                animations: {
-                    toView.transform = CGAffineTransformMakeScale(1.0, 1.0)
-                }, completion: { (_) in
-                    toView.transform = CGAffineTransformIdentity
-                    transitionContext.completeTransition(true)
-            })
+            animationAppearBlock!(view: toView,transitionContext: transitionContext)
+//            // 动画内容
+//            toView.transform = CGAffineTransformMakeScale(1.0, 0)
+//            toView.layer.anchorPoint = CGPointMake(0.5, 0)
+//            
+//            UIView.animateWithDuration(transitionDuration(transitionContext),
+//                delay: 0,
+//                usingSpringWithDamping: 0.8,
+//                initialSpringVelocity: 5.0,
+//                options: nil,
+//                animations: {
+//                    toView.transform = CGAffineTransformMakeScale(1.0, 1.0)
+//                }, completion: { (_) in
+//                    toView.transform = CGAffineTransformIdentity
+//                    transitionContext.completeTransition(true)
+//            })
         } else {
             let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
             fromView.removeFromSuperview()
-            transitionContext.completeTransition(true)
+            animationDisappearBlock!(view: fromView,transitionContext: transitionContext)
         }
     }
 }
