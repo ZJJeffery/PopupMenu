@@ -99,18 +99,17 @@ class PopoverAnimator: NSObject, UIViewControllerAnimatedTransitioning, UIViewCo
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         
         if isPresented {
+            // 开场动画
             let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
             transitionContext.containerView().addSubview(toView)
             // 根据给的动画时长来结束动画
-            /*
-            根据block返回时长来决定结束转场动画上下文的时长
-            */
             let time = animationAppearBlock!(view: toView) as Double
             let time_t = dispatch_time(DISPATCH_TIME_NOW, (Int64)(time * (Double)(NSEC_PER_SEC)))
             dispatch_after(time_t, dispatch_get_main_queue(), { () -> Void in
                 transitionContext.completeTransition(true)
             })
         } else {
+            // 消失动画
             let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
             // 根据动画时长来结束动画
             let time = animationDisappearBlock!(view: fromView) as Double
@@ -122,6 +121,9 @@ class PopoverAnimator: NSObject, UIViewControllerAnimatedTransitioning, UIViewCo
         }
     }
 }
+
+
+
 //MARK: - 转场动画展现控制器
 class PopoverPresentationController: UIPresentationController {
     /// 展现位置
