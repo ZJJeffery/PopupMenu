@@ -30,9 +30,6 @@ class PopoverPresentationController: UIPresentationController {
     }
     
     override init(presentedViewController: UIViewController!, presentingViewController: UIViewController!) {
-        // presentedViewController 是要 Modal 展现的视图控制器
-        println(presentedViewController)
-        
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
     }
     

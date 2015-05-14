@@ -18,9 +18,12 @@ class ViewController: UIViewController {
     @IBAction func showClick() {
         // create modalVc need for shown
         let modalVc = ModalViewController()
-        
+        // 显示的控制器的frame
+        let w: CGFloat = 200
+        let x = (self.view.bounds.size.width - w) * 0.5
+        let frame =  CGRectMake(x, 56, w, 250)
         // show it
-        pm_presentViewController(modalVc, animated: true, completion:nil)
+        pm_presentViewController(modalVc, showFrame: frame, completion:nil)
         
     }
     override func didReceiveMemoryWarning() {
