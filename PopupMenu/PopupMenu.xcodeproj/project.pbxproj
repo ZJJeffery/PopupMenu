@@ -12,8 +12,6 @@
 		9673066F1B0374AE009909F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9673066D1B0374AE009909F1 /* Main.storyboard */; };
 		967306711B0374AE009909F1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 967306701B0374AE009909F1 /* Images.xcassets */; };
 		967306801B0374AE009909F1 /* PopupMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673067F1B0374AE009909F1 /* PopupMenuTests.swift */; };
-		96B56E301B0497F3004C42AA /* PopoverAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B56E2F1B0497F3004C42AA /* PopoverAnimator.swift */; };
-		96B56E321B049837004C42AA /* PopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B56E311B049837004C42AA /* PopoverPresentationController.swift */; };
 		96B56E341B04988D004C42AA /* PopupMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B56E331B04988D004C42AA /* PopupMenu.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,8 +35,6 @@
 		967306791B0374AE009909F1 /* PopupMenuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PopupMenuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9673067E1B0374AE009909F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9673067F1B0374AE009909F1 /* PopupMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMenuTests.swift; sourceTree = "<group>"; };
-		96B56E2F1B0497F3004C42AA /* PopoverAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverAnimator.swift; sourceTree = "<group>"; };
-		96B56E311B049837004C42AA /* PopoverPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverPresentationController.swift; sourceTree = "<group>"; };
 		96B56E331B04988D004C42AA /* PopupMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,8 +81,6 @@
 				9673066B1B0374AE009909F1 /* ViewController.swift */,
 				9673066D1B0374AE009909F1 /* Main.storyboard */,
 				967306701B0374AE009909F1 /* Images.xcassets */,
-				96B56E2F1B0497F3004C42AA /* PopoverAnimator.swift */,
-				96B56E311B049837004C42AA /* PopoverPresentationController.swift */,
 				967306671B0374AE009909F1 /* Supporting Files */,
 				96B56E331B04988D004C42AA /* PopupMenu.swift */,
 			);
@@ -217,9 +211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96B56E321B049837004C42AA /* PopoverPresentationController.swift in Sources */,
 				9673066C1B0374AE009909F1 /* ViewController.swift in Sources */,
-				96B56E301B0497F3004C42AA /* PopoverAnimator.swift in Sources */,
 				9673066A1B0374AE009909F1 /* AppDelegate.swift in Sources */,
 				96B56E341B04988D004C42AA /* PopupMenu.swift in Sources */,
 			);

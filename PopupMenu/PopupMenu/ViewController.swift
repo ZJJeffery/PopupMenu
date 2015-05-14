@@ -22,62 +22,50 @@ class ViewController: UIViewController {
         let w: CGFloat = 200
         let x = (self.view.bounds.size.width - w) * 0.5
         let frame =  CGRectMake(x, 56, w, 250)
-        // show it
         
-        pm_presentViewController(modalVc, showFrame: frame, animationAppearBlock: { (view, transitionContext) -> (NSTimeInterval) in
-            // 动画内容
+        // 进行跳转，携带跳转动画代码进行跳转
+        pm_presentViewController(
+        viewControllerToPresent:modalVc,
+        showFrame: frame,
+        animationAppearBlock:{(view) -> (NSTimeInterval) in
+            /* 开场动画内容 ***************  开场动画内容     */
+            // 属性准备
             view.transform = CGAffineTransformMakeScale(1.0, 0)
             view.layer.anchorPoint = CGPointMake(0.5, 0)
-            
-            UIView.animateWithDuration(3,
+            let animationDuration = 1.0
+            // 动画代码，动画属性
+            UIView.animateWithDuration(animationDuration,
                 delay: 0,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 5.0,
                 options: nil,
                 animations: {
-                    println(view.layer.presentationLayer())
+                    // 动画最终属性
                     view.transform = CGAffineTransformMakeScale(1.0, 1.0)
+                    
                 }, completion: { (_) in
-                    //                    view.transform = CGAffineTransformIdentity
-                    println(view.layer.animationKeys())
-                    println(view.layer.presentationLayer().center)
-//                    ////                    // 不应该让用于调用
-//                    transitionContext.completeTransition(true)
+                    //无完成动画
             })
-            return 3.0
-        }, animationDisappearBlock: { (_, _) -> (NSTimeInterval) in
+            // 返回动画时长，也可以小于该时长用于提早开启用户交互
+            return animationDuration
+        },
+        animationDisappearBlock: { (_) -> (NSTimeInterval) in
+            /* 消失动画内容 ***************  消失动画内容     */
+            // 无消失动画
             return 0.0
-        }, completion: nil)
+        },
+        completion: nil)
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-     let popoverAnimatorDelegate = PopoverAnimator()
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        let vc = segue.destinationViewController as! UIViewController
-//        vc.transitioningDelegate = popoverAnimatorDelegate
-//        
-//        let w: CGFloat = 200
-//        let x = (self.view.bounds.size.width - w) * 0.5
-//        popoverAnimatorDelegate.presentedFrame =  CGRectMake(x, 56, w, 250)
-//        
-//        vc.modalPresentationStyle = UIModalPresentationStyle.Custom
-//
-//    }
-
 }
 
-// test class for modal test
+// 测试类
 class ModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = UIColor.redColor()
     }
     deinit{
+        // 测试是否释放
         println("我去了")
     }
     
