@@ -32,12 +32,12 @@ class ViewController: UIViewController {
             // 属性准备
             view.transform = CGAffineTransformMakeScale(1.0, 0)
             view.layer.anchorPoint = CGPointMake(0.5, 0)
-            let animationDuration = 1.0
+            let animationDuration = 0.5
             // 动画代码，动画属性
             UIView.animateWithDuration(animationDuration,
                 delay: 0,
                 usingSpringWithDamping: 0.8,
-                initialSpringVelocity: 5.0,
+                initialSpringVelocity: 2.0,
                 options: nil,
                 animations: {
                     // 动画最终属性
